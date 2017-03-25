@@ -46,11 +46,11 @@
     font-weight: bold;
 }
 </style>
-<h1>api-documentation for
+<h1>api documentation for
     <a
-        
+
         href="https://github.com/node-schedule/node-schedule#readme"
-        
+
     >node-schedule (v1.2.1)</a>
 </h1>
 <h4>A cron-like and not-cron-like job scheduler for Node.</h4>
@@ -58,209 +58,209 @@
     href="#apidoc.tableOfContents"
     id="apidoc.tableOfContents"
 ><h1>table of contents</h1></a><ol>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.node-schedule">module node-schedule</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Invocation">
             function <span class="apidocSignatureSpan">node-schedule.</span>Invocation
             <span class="apidocSignatureSpan">(job, fireDate, recurrenceRule, endDate)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Job">
             function <span class="apidocSignatureSpan">node-schedule.</span>Job
             <span class="apidocSignatureSpan">(name, job, callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Range">
             function <span class="apidocSignatureSpan">node-schedule.</span>Range
             <span class="apidocSignatureSpan">(start, end, step)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.RecurrenceRule">
             function <span class="apidocSignatureSpan">node-schedule.</span>RecurrenceRule
             <span class="apidocSignatureSpan">(year, month, date, dayOfWeek, hour, minute, second)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.cancelJob">
             function <span class="apidocSignatureSpan">node-schedule.</span>cancelJob
             <span class="apidocSignatureSpan">(job)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.rescheduleJob">
             function <span class="apidocSignatureSpan">node-schedule.</span>rescheduleJob
             <span class="apidocSignatureSpan">(job, spec)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.scheduleJob">
             function <span class="apidocSignatureSpan">node-schedule.</span>scheduleJob
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">node-schedule.</span>Job.prototype</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">node-schedule.</span>Range.prototype</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">node-schedule.</span>RecurrenceRule.prototype</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">node-schedule.</span>scheduledJobs</span>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.node-schedule.Job">module node-schedule.Job</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Job.Job">
             function <span class="apidocSignatureSpan">node-schedule.</span>Job
             <span class="apidocSignatureSpan">(name, job, callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Job.super_">
             function <span class="apidocSignatureSpan">node-schedule.Job.</span>super_
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.node-schedule.Job.prototype">module node-schedule.Job.prototype</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Job.prototype.invoke">
             function <span class="apidocSignatureSpan">node-schedule.Job.prototype.</span>invoke
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Job.prototype.runOnDate">
             function <span class="apidocSignatureSpan">node-schedule.Job.prototype.</span>runOnDate
             <span class="apidocSignatureSpan">(date)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Job.prototype.schedule">
             function <span class="apidocSignatureSpan">node-schedule.Job.prototype.</span>schedule
             <span class="apidocSignatureSpan">(spec)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.node-schedule.Range">module node-schedule.Range</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Range.Range">
             function <span class="apidocSignatureSpan">node-schedule.</span>Range
             <span class="apidocSignatureSpan">(start, end, step)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.node-schedule.Range.prototype">module node-schedule.Range.prototype</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.Range.prototype.contains">
             function <span class="apidocSignatureSpan">node-schedule.Range.prototype.</span>contains
             <span class="apidocSignatureSpan">(val)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.node-schedule.RecurrenceRule">module node-schedule.RecurrenceRule</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.RecurrenceRule.RecurrenceRule">
             function <span class="apidocSignatureSpan">node-schedule.</span>RecurrenceRule
             <span class="apidocSignatureSpan">(year, month, date, dayOfWeek, hour, minute, second)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.node-schedule.RecurrenceRule.prototype">module node-schedule.RecurrenceRule.prototype</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.node-schedule.RecurrenceRule.prototype.nextInvocationDate">
             function <span class="apidocSignatureSpan">node-schedule.RecurrenceRule.prototype.</span>nextInvocationDate
             <span class="apidocSignatureSpan">(base)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.node-schedule" id="apidoc.module.node-schedule">module node-schedule</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Invocation" id="apidoc.element.node-schedule.Invocation">
         function <span class="apidocSignatureSpan">node-schedule.</span>Invocation
@@ -278,9 +278,9 @@
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Job" id="apidoc.element.node-schedule.Job">
         function <span class="apidocSignatureSpan">node-schedule.</span>Job
@@ -431,9 +431,9 @@
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Range" id="apidoc.element.node-schedule.Range">
         function <span class="apidocSignatureSpan">node-schedule.</span>Range
@@ -464,9 +464,9 @@ var j = schedule.scheduleJob(rule, function(){
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.RecurrenceRule" id="apidoc.element.node-schedule.RecurrenceRule">
         function <span class="apidocSignatureSpan">node-schedule.</span>RecurrenceRule
@@ -502,9 +502,9 @@ var j = schedule.scheduleJob(rule, function(){
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.cancelJob" id="apidoc.element.node-schedule.cancelJob">
         function <span class="apidocSignatureSpan">node-schedule.</span>cancelJob
@@ -526,9 +526,9 @@ var j = schedule.scheduleJob(rule, function(){
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.rescheduleJob" id="apidoc.element.node-schedule.rescheduleJob">
         function <span class="apidocSignatureSpan">node-schedule.</span>rescheduleJob
@@ -552,9 +552,9 @@ var j = schedule.scheduleJob(rule, function(){
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.scheduleJob" id="apidoc.element.node-schedule.scheduleJob">
         function <span class="apidocSignatureSpan">node-schedule.</span>scheduleJob
@@ -598,22 +598,22 @@ Execute a cron job when the minute is 42 (e.g. 19:42, 20:42, etc.).
 And:
 ...</pre></li>
     </ul>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.node-schedule.Job" id="apidoc.module.node-schedule.Job">module node-schedule.Job</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Job.Job" id="apidoc.element.node-schedule.Job.Job">
         function <span class="apidocSignatureSpan">node-schedule.</span>Job
@@ -764,9 +764,9 @@ And:
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Job.super_" id="apidoc.element.node-schedule.Job.super_">
         function <span class="apidocSignatureSpan">node-schedule.Job.</span>super_
@@ -779,14 +779,14 @@ And:
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.node-schedule.Job.prototype" id="apidoc.module.node-schedule.Job.prototype">module node-schedule.Job.prototype</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Job.prototype.invoke" id="apidoc.element.node-schedule.Job.prototype.invoke">
         function <span class="apidocSignatureSpan">node-schedule.Job.prototype.</span>invoke
@@ -804,9 +804,9 @@ And:
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Job.prototype.runOnDate" id="apidoc.element.node-schedule.Job.prototype.runOnDate">
         function <span class="apidocSignatureSpan">node-schedule.Job.prototype.</span>runOnDate
@@ -819,9 +819,9 @@ And:
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Job.prototype.schedule" id="apidoc.element.node-schedule.Job.prototype.schedule">
         function <span class="apidocSignatureSpan">node-schedule.Job.prototype.</span>schedule
@@ -914,14 +914,14 @@ And:
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.node-schedule.Range" id="apidoc.module.node-schedule.Range">module node-schedule.Range</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Range.Range" id="apidoc.element.node-schedule.Range.Range">
         function <span class="apidocSignatureSpan">node-schedule.</span>Range
@@ -952,14 +952,14 @@ var j = schedule.scheduleJob(rule, function(){
 ```
 ...</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.node-schedule.Range.prototype" id="apidoc.module.node-schedule.Range.prototype">module node-schedule.Range.prototype</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.Range.prototype.contains" id="apidoc.element.node-schedule.Range.prototype.contains">
         function <span class="apidocSignatureSpan">node-schedule.Range.prototype.</span>contains
@@ -982,14 +982,14 @@ var j = schedule.scheduleJob(rule, function(){
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.node-schedule.RecurrenceRule" id="apidoc.module.node-schedule.RecurrenceRule">module node-schedule.RecurrenceRule</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.RecurrenceRule.RecurrenceRule" id="apidoc.element.node-schedule.RecurrenceRule.RecurrenceRule">
         function <span class="apidocSignatureSpan">node-schedule.</span>RecurrenceRule
@@ -1025,14 +1025,14 @@ var j = schedule.scheduleJob(rule, function(){
 ```
 ...</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.node-schedule.RecurrenceRule.prototype" id="apidoc.module.node-schedule.RecurrenceRule.prototype">module node-schedule.RecurrenceRule.prototype</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.node-schedule.RecurrenceRule.prototype.nextInvocationDate" id="apidoc.element.node-schedule.RecurrenceRule.prototype.nextInvocationDate">
         function <span class="apidocSignatureSpan">node-schedule.RecurrenceRule.prototype.</span>nextInvocationDate
@@ -1107,8 +1107,8 @@ var j = schedule.scheduleJob(rule, function(){
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocFooterDiv">
