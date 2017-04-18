@@ -144,6 +144,12 @@
 
         <li>
 
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">node-schedule.</span>schedule</span>
+
+        </li>
+
+        <li>
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">node-schedule.</span>scheduledJobs</span>
 
         </li>
@@ -250,6 +256,79 @@
             function <span class="apidocSignatureSpan">node-schedule.RecurrenceRule.prototype.</span>nextInvocationDate
             <span class="apidocSignatureSpan">(base)</span>
             </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.node-schedule.schedule">module node-schedule.schedule</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-schedule.schedule.Invocation">
+            function <span class="apidocSignatureSpan">node-schedule.schedule.</span>Invocation
+            <span class="apidocSignatureSpan">(job, fireDate, recurrenceRule, endDate)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-schedule.schedule.Job">
+            function <span class="apidocSignatureSpan">node-schedule.schedule.</span>Job
+            <span class="apidocSignatureSpan">(name, job, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-schedule.schedule.Range">
+            function <span class="apidocSignatureSpan">node-schedule.schedule.</span>Range
+            <span class="apidocSignatureSpan">(start, end, step)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-schedule.schedule.RecurrenceRule">
+            function <span class="apidocSignatureSpan">node-schedule.schedule.</span>RecurrenceRule
+            <span class="apidocSignatureSpan">(year, month, date, dayOfWeek, hour, minute, second)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-schedule.schedule.cancelJob">
+            function <span class="apidocSignatureSpan">node-schedule.schedule.</span>cancelJob
+            <span class="apidocSignatureSpan">(job)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-schedule.schedule.rescheduleJob">
+            function <span class="apidocSignatureSpan">node-schedule.schedule.</span>rescheduleJob
+            <span class="apidocSignatureSpan">(job, spec)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-schedule.schedule.scheduleJob">
+            function <span class="apidocSignatureSpan">node-schedule.schedule.</span>scheduleJob
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">node-schedule.schedule.</span>scheduledJobs</span>
 
         </li>
 
@@ -608,6 +687,8 @@ And:
 
 
 
+
+
 </div>
 
 <div class="apidocSectionDiv">
@@ -802,7 +883,23 @@ And:
     this.job.execute();
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      if (inv !== null) {
+        inv.job.trackInvocation(inv);
+      }
+    }
+
+    job.stopTrackingInvocation(cinv);
+
+    job.<span class="apidocCodeKeywordSpan">invoke</span>();
+    job.emit(&#x27;run&#x27;);
+  });
+}
+}
+
+function currentInvocationFinished() {
+invocations.shift();
+...</pre></li>
     </ul>
 
 
@@ -912,7 +1009,23 @@ And:
   scheduledJobs[this.name] = this;
   return success;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    inv = cInvs[j];
+
+    cancelInvocation(inv);
+  }
+
+  pendingInvocations = [];
+
+  if (this.<span class="apidocCodeKeywordSpan">schedule</span>(spec)) {
+    this.setTriggeredJobs(0);
+    return true;
+  } else {
+    pendingInvocations = cInvs;
+    return false;
+  }
+};
+...</pre></li>
     </ul>
 
 
@@ -980,7 +1093,23 @@ var j = schedule.scheduleJob(rule, function(){
     return false;
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+if (matcher == null) {
+  return true;
+}
+
+if (typeof matcher === &#x27;number&#x27; || typeof matcher === &#x27;string&#x27;) {
+  return (val === matcher);
+} else if (matcher instanceof Range) {
+  return matcher.<span class="apidocCodeKeywordSpan">contains</span>(val);
+} else if (Array.isArray(matcher) || (matcher instanceof Array)) {
+  for (var i = 0; i &#x3c; matcher.length; i++) {
+    if (recurMatch(val, matcher[i])) {
+      return true;
+    }
+  }
+}
+...</pre></li>
     </ul>
 
 
@@ -1105,8 +1234,372 @@ var j = schedule.scheduleJob(rule, function(){
 
   return next;
 }</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+}
+
+/* Recurrence scheduler */
+function scheduleNextRecurrence(rule, job, prevDate, endDate) {
+
+prevDate = (prevDate instanceof Date) ? prevDate : (new Date());
+
+var date = (rule instanceof RecurrenceRule) ? rule.<span class="apidocCodeKeywordSpan">nextInvocationDate</span>(prevDate) : rule
+.next();
+if (date === null) {
+  return null;
+}
+
+if ((endDate instanceof Date) &#x26;&#x26; date.getTime() &#x3e; endDate.getTime()) {
+  return null;
+}
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.node-schedule.schedule" id="apidoc.module.node-schedule.schedule">module node-schedule.schedule</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.node-schedule.schedule.Invocation" id="apidoc.element.node-schedule.schedule.Invocation">
+        function <span class="apidocSignatureSpan">node-schedule.schedule.</span>Invocation
+        <span class="apidocSignatureSpan">(job, fireDate, recurrenceRule, endDate)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Invocation(job, fireDate, recurrenceRule, endDate) {
+  this.job = job;
+  this.fireDate = fireDate;
+  this.endDate = endDate;
+  this.recurrenceRule = recurrenceRule || DoesntRecur;
+
+  this.timerID = null;
+}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-schedule.schedule.Job" id="apidoc.element.node-schedule.schedule.Job">
+        function <span class="apidocSignatureSpan">node-schedule.schedule.</span>Job
+        <span class="apidocSignatureSpan">(name, job, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Job(name, job, callback) {
+  // setup a private pendingInvocations variable
+  var pendingInvocations = [];
+
+  //setup a private number of invocations variable
+  var triggeredJobs = 0;
+
+  // Set scope vars
+  var jobName = name &#x26;&#x26; typeof name === &#x27;string&#x27; ? name : &#x27;&#x3c;Anonymous Job &#x27; + (++anonJobCounter) + &#x27;&#x3e;&#x27;;
+  this.job = name &#x26;&#x26; typeof name === &#x27;function&#x27; ? name : job;
+
+  // Make sure callback is actually a callback
+  if (this.job === name) {
+    // Name wasn&#x27;t provided and maybe a callback is there
+    this.callback = typeof job === &#x27;function&#x27; ? job : false;
+  } else {
+    // Name was provided, and maybe a callback is there
+    this.callback = typeof callback === &#x27;function&#x27; ? callback : false;
+  }
+
+  // Check for generator
+  if (typeof this.job === &#x27;function&#x27; &#x26;&#x26;
+      this.job.prototype &#x26;&#x26;
+      this.job.prototype.next) {
+    this.job = function() {
+      return this.next().value;
+    }.bind(this.job.call(this));
+  }
+
+  // define properties
+  Object.defineProperty(this, &#x27;name&#x27;, {
+    value: jobName,
+    writable: false,
+    enumerable: true
+  });
+
+  // method that require private access
+  this.trackInvocation = function(invocation) {
+    // add to our invocation list
+    sorted.add(pendingInvocations, invocation, sorter);
+    return true;
+  };
+  this.stopTrackingInvocation = function(invocation) {
+    var invIdx = pendingInvocations.indexOf(invocation);
+    if (invIdx &#x3e; -1) {
+      pendingInvocations.splice(invIdx, 1);
+      return true;
+    }
+
+    return false;
+  };
+  this.triggeredJobs = function() {
+    return triggeredJobs;
+  };
+  this.setTriggeredJobs = function(triggeredJob) {
+    triggeredJobs = triggeredJob;
+  };
+  this.cancel = function(reschedule) {
+    reschedule = (typeof reschedule == &#x27;boolean&#x27;) ? reschedule : false;
+
+    var inv, newInv;
+    var newInvs = [];
+    for (var j = 0; j &#x3c; pendingInvocations.length; j++) {
+      inv = pendingInvocations[j];
+
+      cancelInvocation(inv);
+
+      if (reschedule &#x26;&#x26; inv.recurrenceRule.recurs) {
+        newInv = scheduleNextRecurrence(inv.recurrenceRule, this, inv.fireDate, inv.endDate);
+        if (newInv !== null) {
+          newInvs.push(newInv);
+        }
+      }
+    }
+
+    pendingInvocations = [];
+
+    for (var k = 0; k &#x3c; newInvs.length; k++) {
+      this.trackInvocation(newInvs[k]);
+    }
+
+    // remove from scheduledJobs if reschedule === false
+    if (!reschedule) {
+      if (this.name) {
+        delete scheduledJobs[this.name];
+      }
+    }
+
+    return true;
+  };
+  this.cancelNext = function(reschedule) {
+    reschedule = (typeof reschedule == &#x27;boolean&#x27;) ? reschedule : true;
+
+    if (!pendingInvocations.length) {
+      return false;
+    }
+
+    var newInv;
+    var nextInv = pendingInvocations.shift();
+
+    cancelInvocation(nextInv);
+
+    if (reschedule &#x26;&#x26; nextInv.recurrenceRule.recurs) {
+      newInv = scheduleNextRecurrence(nextInv.recurrenceRule, this, nextInv.fireDate, nextInv.endDate);
+      if (newInv !== null) {
+        this.trackInvocation(newInv);
+      }
+    }
+
+    return true;
+  };
+  this.reschedule = function(spec) {
+    var inv;
+    var cInvs = pendingInvocations.slice();
+
+    for (var j = 0; j &#x3c; cInvs.length; j++) {
+      inv = cInvs[j];
+
+      cancelInvocation(inv);
+    }
+
+    pendingInvocations = [];
+
+    if (this.schedule(spec)) {
+      this.setTriggeredJobs(0);
+      return true;
+    } else {
+      pendingInvocations = cInvs;
+      return false;
+    }
+  };
+  this.nextInvocation = function() {
+    if (!pendingInvocations.length) {
+      return null;
+    }
+    return pendingInvocations[0].fireDate;
+  };
+  this.pendingInvocations = function() {
+    return pendingInvocations;
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-schedule.schedule.Range" id="apidoc.element.node-schedule.schedule.Range">
+        function <span class="apidocSignatureSpan">node-schedule.schedule.</span>Range
+        <span class="apidocSignatureSpan">(start, end, step)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Range(start, end, step) {
+  this.start = start || 0;
+  this.end = end || 60;
+  this.step = step || 1;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+You can also use arrays to specify a list of acceptable values, and the `Range`
+object to specify a range of start and end values, with an optional step parameter.
+For instance, this will print a message on Thursday, Friday, Saturday, and Sunday at 5pm:
+
+```js
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.<span class="apidocCodeKeywordSpan">Range</span>(4, 6)];
+rule.hour = 17;
+rule.minute = 0;
+
+var j = schedule.scheduleJob(rule, function(){
+  console.log(&#x27;Today is recognized by Rebecca Black!&#x27;);
+});
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-schedule.schedule.RecurrenceRule" id="apidoc.element.node-schedule.schedule.RecurrenceRule">
+        function <span class="apidocSignatureSpan">node-schedule.schedule.</span>RecurrenceRule
+        <span class="apidocSignatureSpan">(year, month, date, dayOfWeek, hour, minute, second)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function RecurrenceRule(year, month, date, dayOfWeek, hour, minute, second) {
+  this.recurs = true;
+
+  this.year = (year == null) ? null : year;
+  this.month = (month == null) ? null : month;
+  this.date = (date == null) ? null : date;
+  this.dayOfWeek = (dayOfWeek == null) ? null : dayOfWeek;
+  this.hour = (hour == null) ? null : hour;
+  this.minute = (minute == null) ? null : minute;
+  this.second = (second == null) ? 0 : second;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+You can build recurrence rules to specify when a job should recur. For instance,
+consider this rule, which executes the function every hour at 42 minutes after the hour:
+
+```js
+var schedule = require(&#x27;node-schedule&#x27;);
+
+var rule = new schedule.<span class="apidocCodeKeywordSpan">RecurrenceRule</span>();
+rule.minute = 42;
+
+var j = schedule.scheduleJob(rule, function(){
+  console.log(&#x27;The answer to life, the universe, and everything!&#x27;);
+});
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-schedule.schedule.cancelJob" id="apidoc.element.node-schedule.schedule.cancelJob">
+        function <span class="apidocSignatureSpan">node-schedule.schedule.</span>cancelJob
+        <span class="apidocSignatureSpan">(job)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function cancelJob(job) {
+  var success = false;
+  if (job instanceof Job) {
+    success = job.cancel();
+  } else if (typeof job == &#x27;string&#x27; || job instanceof String) {
+    if (job in scheduledJobs &#x26;&#x26; scheduledJobs.hasOwnProperty(job)) {
+      success = scheduledJobs[job].cancel();
+    }
+  }
+
+  return success;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-schedule.schedule.rescheduleJob" id="apidoc.element.node-schedule.schedule.rescheduleJob">
+        function <span class="apidocSignatureSpan">node-schedule.schedule.</span>rescheduleJob
+        <span class="apidocSignatureSpan">(job, spec)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function rescheduleJob(job, spec) {
+  if (job instanceof Job) {
+    if (job.reschedule(spec)) {
+      return job;
+    }
+  } else if (typeof job == &#x27;string&#x27; || job instanceof String) {
+    if (job in scheduledJobs &#x26;&#x26; scheduledJobs.hasOwnProperty(job)) {
+      if (scheduledJobs[job].reschedule(spec)) {
+        return scheduledJobs[job];
+      }
+    }
+  }
+  return null;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-schedule.schedule.scheduleJob" id="apidoc.element.node-schedule.schedule.scheduleJob">
+        function <span class="apidocSignatureSpan">node-schedule.schedule.</span>scheduleJob
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function scheduleJob() {
+  if (arguments.length &#x3c; 2) {
+    return null;
+  }
+
+  var name = (arguments.length &#x3e;= 3 &#x26;&#x26; typeof arguments[0] === &#x27;string&#x27;) ? arguments[0] : null;
+  var spec = name ? arguments[1] : arguments[0];
+  var method = name ? arguments[2] : arguments[1];
+  var callback = name ? arguments[3] : arguments[2];
+
+  var job = new Job(name, method, callback);
+
+  if (job.schedule(spec)) {
+    return job;
+  }
+
+  return null;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```
+
+Examples with the cron format:
+
+```js
+var schedule = require(&#x27;node-schedule&#x27;);
+
+var j = schedule.<span class="apidocCodeKeywordSpan">scheduleJob</span>(&#x27;42 * * * *&#x27;, function(){
+  console.log(&#x27;The answer to life, the universe, and everything!&#x27;);
+});
+```
+
+Execute a cron job when the minute is 42 (e.g. 19:42, 20:42, etc.).
+
+And:
+...</pre></li>
+    </ul>
+
+
 
 
 </div>
