@@ -1,6 +1,6 @@
 # npmdoc-node-schedule
 
-#### api documentation for  [node-schedule (v1.2.1)](https://github.com/node-schedule/node-schedule#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-node-schedule.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-node-schedule) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-node-schedule.svg)](https://travis-ci.org/npmdoc/node-npmdoc-node-schedule)
+#### basic api documentation for  [node-schedule (v1.2.1)](https://github.com/node-schedule/node-schedule#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-node-schedule.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-node-schedule) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-node-schedule.svg)](https://travis-ci.org/npmdoc/node-npmdoc-node-schedule)
 
 #### A cron-like and not-cron-like job scheduler for Node.
 
@@ -80,7 +80,8 @@
         "lint": "eslint lib",
         "test": "nodeunit"
     },
-    "version": "1.2.1"
+    "version": "1.2.1",
+    "bin": {}
 }
 ```
 
